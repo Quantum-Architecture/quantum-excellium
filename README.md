@@ -1,50 +1,77 @@
 # Quantum Excellium
+
 **Engineering Intelligence. Securing Autonomy.**
 
-Quantum Excellium is an independent deep-tech ecosystem founded by **Catherine Marango**, focused on strategic intellectual property, secure and governed AI systems, cybersecurity, autonomous architectures and controlled technology licensing.
+Quantum Excellium is an independent deep-tech company developing proprietary systems for governed AI, cybersecurity, autonomous architectures and verifiable operational evidence.
 
-## Public technology map
+This repository is the public institutional gateway. It is intentionally **substantive but non-enabling**.
 
-### Strategic IP
-Five INPI patent applications form the current **public** strategic-IP portfolio — a sixth is filed and will be described publicly once its clearance is confirmed.
+## Start with proof
 
-| Reference | Public functional area |
-| --------- | ---------------------- |
-| FR2605737 | Adaptive orchestration and constrained-compute awareness |
-| FR2605738 | Self-regenerating hardware cryptography |
-| FR2606226 | AI-model and runtime integrity |
-| FR2608919 | Runtime telemetry and regulation |
-| FR2608994 | Authenticated data lifecycle and verifiable closure |
+- Governed-agent demo: https://github.com/Quantum-Architecture/qec-governed-agent-demo
+- Seven platform scenarios: https://github.com/Quantum-Architecture/qec-demo-agents
+- Ledger verifier: https://github.com/Quantum-Architecture/ledger-verify
+- AI Worlds protocol runner: https://github.com/Quantum-Architecture/ai-worlds-protocol
+- Proof page: https://quantumexcellium.com/en/proof.html
 
-These are **patent applications**, not granted patents. Public descriptions are intentionally non-enabling.
+## QEC — public control path
 
-### QEC — Quantum Excellium Core
-`Intent -> Policy & Governance -> Orchestration -> Controlled Execution -> Runtime Integrity -> Evidence`
-Public materials focus on interfaces, capability boundaries, auditability and integration patterns rather than proprietary implementation logic. See **qec-overview**.
+```text
+Intent
+  -> Policy & Governance
+  -> Authority / Delegation Bounds
+  -> Controlled Tool Execution
+  -> Runtime Integrity
+  -> Evidence / Audit
+```
 
-### Specialised AI systems
-**QE Fashion AI Agent Pro (QE-FAS)** — brand-signed, third-party-verifiable product passports and whole-collection processing, designed for the European digital product passport context.
+## Public evidence map
 
-### AI Worlds
-Three experimental environments designed for AI models themselves — **Ludonirium** (experience and replay), **Parcivium** (more distinct possibilities under resource constraints), **Syngnosium** (structured human-model cooperation). Protocol-based evaluation, explicit limits, no claim of AI consciousness. See **ai-worlds**.
+| Mechanism | Public evidence |
+|---|---|
+| Pre-tool policy decision | governed-agent demo |
+| Budget / exact-decimal metering | governed-agent demo |
+| Delegation non-escalation | public delegation tests |
+| Decision journaling | generated JSONL ledger |
+| Tamper detection | `ledger-verify` |
+| Controlled failure / escalation | denied actions + explicit reason |
 
-### Interactive systems
-A public Game Division of sixteen interactive worlds and selected demonstrators, used to present ideas, constraints and system behaviour without exposing proprietary source code.
+## QEC 3.5.2 — licensed runtime
 
-## Public repositories
-- **quantum-excellium** — institutional gateway
-- **ledger-verify** — runnable integrity demonstrator
-- **strategic-ip-portfolio** — controlled public IP summaries
-- **qec-overview** — QEC public architecture
-- **ai-worlds** — AI-world protocols and boundaries
-- **selected-demonstrators** — curated public demonstrations
+The licensed runtime is **not published here**.
+
+Public validation summary:
+- 314 automated tests;
+- executable proof scripts;
+- offline-capable validation;
+- package hashes published with delivered evaluation bundles.
+
+No private Local Core source, internal policy weights, unpublished algorithms or enabling patent detail is included here.
+
+## Strategic IP
+
+Six INPI patent applications are referenced publicly:
+
+FR2605737 · FR2605738 · FR2606226 · FR2608919 · FR2608994 · FR2612159
+
+These are **patent applications, not granted patents**.
+
+## Limits
+
+This repository does not claim:
+- SOC 2 certification;
+- ISO 27001 certification;
+- OWASP Agent Control Standard conformance;
+- production fitness for a specific customer environment;
+- unmeasured performance figures.
 
 ## Controlled disclosure
-Published: functional purpose · architecture at public abstraction level · demonstrable verification principles · public interfaces and boundaries · selected evidence and examples.
-Not published: unpublished source code · patent-enabling implementation details · private prompts or orchestration logic · internal thresholds, weights or secret parameters · confidential customer or partner information · defence-sensitive or otherwise restricted material.
+
+Published: public architecture, reproducible demos, verification utilities, proof outputs, hashes and explicit limitations.
+
+Not published: licensed runtime, private Local Core, private prompts, internal thresholds/weights, security-sensitive production configuration or patent-enabling detail.
 
 ## Contact
-**Website:** https://quantumexcellium.com
-**LinkedIn:** https://www.linkedin.com/company/quantum-excellium/
 
-Technology licensing · Strategic partnerships · Controlled evaluation · Enterprise integration
+Website: https://quantumexcellium.com  
+Evaluation: contact@quantumexcellium.com

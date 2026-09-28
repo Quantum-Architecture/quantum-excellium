@@ -1,5 +1,11 @@
-# Security and disclosure
+# Security Policy
 
-Please do not submit confidential, proprietary, patent-enabling or security-sensitive material through public issues.
+Please report suspected security issues privately to **contact@quantumexcellium.com**.
 
-For initial contact, use the official Quantum Excellium website.
+Include the affected repository/version, reproduction steps, observed impact, and a safe proof-of-concept if available.
+
+We aim to acknowledge valid reports within **5 business days**.
+
+There is currently **no public bug bounty programme**.
+
+Public repositories are controlled-disclosure documentation, public shims, verifiers or demonstrators. A public component is not necessarily the implementation used by the licensed runtime.

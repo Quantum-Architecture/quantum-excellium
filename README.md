@@ -1,5 +1,7 @@
 # Quantum Excellium
 
+[![self-check](https://github.com/Quantum-Architecture/quantum-excellium/actions/workflows/public-repo.yml/badge.svg)](https://github.com/Quantum-Architecture/quantum-excellium/actions/workflows/public-repo.yml)
+
 **Engineering Intelligence. Securing Autonomy.**
 
 Quantum Excellium is an independent deep-tech company developing proprietary systems for governed AI, cybersecurity, autonomous architectures and verifiable operational evidence.

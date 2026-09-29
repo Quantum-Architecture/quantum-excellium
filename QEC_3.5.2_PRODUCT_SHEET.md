@@ -1,149 +1,57 @@
-﻿# Quantum Excellium Core (QEC) 3.5.2 — governed runtime for AI agents
+# Quantum Excellium Core (QEC) 3.5.2 — governed runtime for AI agents
 
-> Public product and evidence sheet. The QEC Local Core is licensed software and is not published in this repository.
-> Public repositories provide executable demonstrations, verification tools, architecture documentation and evaluation material.
+> Public gateway. The Local Core is licensed software; this repository holds the product sheet, the proof commands,
+> the changelog and the SHA-256 of delivered packages — never the runtime code.
 
 ## 1. What QEC is
+A zero-dependency Python runtime that sits between an AI agent and its tools: every tool call is policy-checked
+**before** execution, cost is metered in exact decimals with hard ceilings, agent-to-agent delegation is signed and
+cannot escalate authority, and every decision lands in a hash-chained ledger that an independent verifier can check.
 
-QEC is a governance runtime positioned between an AI agent and its tools.
+## 2. Architecture (10 lines)
+- **Local Core** — AuditChain (JSONL, SHA-256 chained, fsync, rotation) · crypto (Ed25519, HMAC, canonical JSON) · CostMeter (Decimal) · DelegationAssurance · TransactionGuard · AuthorityRegistry.
+- **Trust Plane (3.5.x)** — A2A Trust Envelope (signed delegations, parent binding, authority(child) ⊆ authority(parent), expiry ≤ parent) · per-request proof-of-possession · AuthorityMeter · DriftSentinel (signed approval) · ReplayCapsule / ReplayLab (counterfactual replay) · ledger-attested durable state (SQLite, tampering → refused) · signed operator orders (rotate anchors, revoke keys) · EvidenceBridge (OpenTelemetry GenAI vocabulary, allow-listed attributes).
+- **Differentials × Industry Packs** — one control plane, vendor-specific adapters (AWS Bedrock AgentCore Cedar pre-compiler, Google Model Armor proof, Anthropic/IBM MCP loop, ServiceNow, Salesforce, SAP).
 
-Its control model is:
+## 3. Mechanisms and their tests
+| Mechanism | Test module | Tests |
+|---|---|---|
+| AuditChain / ledger | tests/test_integrity.py | [n] |
+| Crypto (Ed25519, HMAC, canonical) | tests/test_crypto.py | [n] |
+| Trust Plane (envelope, PoP, meters, drift, replay, attested state) | tests/test_trust_plane.py | 43 |
+| Cost meter (Decimal) | tests/test_cost.py | [n] |
+| Differentials | tests/test_*_differential.py | [n] |
+| **Total** | | **314** |
 
-**Intent → Policy & Governance → Authority / Delegation Bounds → Controlled Tool Execution → Runtime Integrity → Evidence / Audit**
-
-Before execution, QEC can evaluate policy, authority, delegated permissions and budget constraints. Decisions are recorded as verifiable evidence so that allowed and refused actions can be audited independently.
-
-The licensed runtime includes exact-decimal cost controls, signed agent-to-agent delegation, runtime-integrity mechanisms and cryptographically chained evidence.
-
-## 2. Core mechanisms
-
-- **Policy-before-execution** — tool actions are evaluated before execution rather than audited only afterwards.
-- **Exact-decimal budget metering** — monetary limits use decimal arithmetic and explicit ceilings.
-- **Non-escalating delegation** — delegated authority cannot exceed the authority held by the parent agent.
-- **Signed delegation and proof of possession** — licensed-runtime authority exchanges use Ed25519-based mechanisms.
-- **Runtime integrity** — configuration drift and trust-state changes are controlled and evidenced.
-- **Verifiable audit trail** — decisions are written to a SHA-256 chained ledger that can be checked independently.
-- **Replay and evidence tooling** — evaluation material supports replay, verification and investigation of governed decisions.
-
-## 3. Evidence status
-
-### Licensed QEC 3.5.2 runtime
-
-The validated QEC 3.5.2 suite comprises:
-
-- **314 automated tests**
-- **29/29 Trust Plane adversarial scenarios**
-
-The licensed runtime is not published in this repository. These tests are reproduced with the controlled evaluation package supplied to an evaluator.
-
-### Public evidence
-
-The public GitHub repositories provide independently runnable evidence:
-
-- `qec-governed-agent-demo` — the same agent executed without governance and then with governance, including adversarial tests and a verifiable ledger.
-- `ledger-verify` — independent verification of intact and tampered chained JSONL ledgers.
-- `qec-demo-agents` — seven platform-oriented scenarios exercised against the public demonstration layer.
-- `qec-overview` — architecture, evaluation guide, threat model, control mapping, documented limits and reproducible public-shim benchmark.
-
-Public demonstration code is a **shim implementing public control semantics**. It is not the licensed QEC Local Core.
-
-## 4. Public reproduction
-
-Governed-agent demonstration:
-
-```bash
-git clone https://github.com/Quantum-Architecture/qec-governed-agent-demo
-cd qec-governed-agent-demo
-python -m unittest -q test_demo
-python demo.py
+## 4. Proof — run it yourself
 ```
-
-Ledger verifier:
-
-```bash
-git clone https://github.com/Quantum-Architecture/ledger-verify
-cd ledger-verify
-python -m unittest -q test_ledger_verify
+python -m pytest -q                              # 314 passed
+python platform/kernel/prove_trust_plane.py      # 29/29 scenarios, signed attestation
+python ledger_verify.py <any ledger>.jsonl       # VALID / INVALID (public verifier)
 ```
+[PASTE REAL OUTPUT CAPTURE HERE]
 
-Platform-oriented demonstration scenarios:
+## 5. Versions
+- **3.5.2** — ledger-attested state (LtHash-style lattice for large tables, periodic full verify), signed operator orders, fixed-width timestamps, proof-window bound (300 s), ReplayLab.counterfactual.
+- **3.5.1** — per-request proof-of-possession, signature domains, SQLite trust state, revocation, anchor rotation.
+- **3.5.0** — Trust Plane: A2A envelope, AuthorityMeter, DriftSentinel, ReplayCapsule, EvidenceBridge, ACS adapter (fail-closed).
 
-```bash
-git clone https://github.com/Quantum-Architecture/qec-demo-agents
-cd qec-demo-agents
-python -m unittest -q test_scenarios
-```
+## 6. Limits, in writing
+No SOC 2 / ISO 27001 certification. Integration boundary for the OWASP Agent Control Standard — **no conformance claim**.
+Evidence export uses the OpenTelemetry GenAI semantic conventions, which are still in Development status.
+No performance figure is published that we have not measured and cannot reproduce for you.
 
-Evaluation documentation:
+## 7. Delivered packages (3.5.2) — SHA-256
+| Package | SHA-256 |
+|---|---|
+| QEC_aws_delivered_v3.5.2.zip | [64 hex] |
+| QEC_google_delivered_v3.5.2.zip | [64 hex] |
+| QEC_anthropic_delivered_v3.5.2.zip | [64 hex] |
+| QEC_ibm_delivered_v3.5.2.zip | [64 hex] |
+| QEC_servicenow_delivered_v3.5.2.zip | [64 hex] |
+| QEC_salesforce_delivered_v3.5.2.zip | [64 hex] |
+| QEC_sap_delivered_v3.5.2.zip | [64 hex] |
 
-https://github.com/Quantum-Architecture/qec-overview
-
-## 5. Licensed-runtime evaluation
-
-Inside an authorised QEC 3.5.2 evaluation package, the principal proof commands are:
-
-```text
-python -m pytest -q
-# validated suite: 314 automated tests
-
-python platform/kernel/prove_trust_plane.py
-# validated result: 29/29 Trust Plane adversarial scenarios
-```
-
-The corresponding runtime source and licensed integration components are not part of the public GitHub distribution.
-
-## 6. QEC 3.5.x evolution
-
-- **3.5.0** — Trust Plane foundation: A2A trust envelope, authority metering, drift controls, replay evidence and integration boundary.
-- **3.5.1** — per-request proof of possession, signature domains, durable trust state, revocation and anchor rotation.
-- **3.5.2** — strengthened ledger-attested state, signed operator controls, bounded proof windows and extended replay/evidence mechanisms.
-
-## 7. Platform-oriented integration scope
-
-QEC evaluation material includes platform-oriented integration scenarios and bundles covering patterns associated with:
-
-**AWS · Google · Anthropic · IBM · Salesforce · ServiceNow · SAP**
-
-These references describe technical integration targets and scenarios only. They do **not** imply partnership, endorsement or certification by those companies.
-
-## 8. Limits, in writing
-
-QEC does **not** claim SOC 2 certification or ISO 27001 certification.
-
-Quantum Excellium does **not** claim conformance to the OWASP Agent Control Standard. QEC exposes an integration boundary relevant to agent-control architectures.
-
-References to standards or frameworks in public documentation are architectural mappings or self-assessments unless explicitly stated otherwise.
-
-A cryptographic hash chain provides evidence of integrity within its stated trust assumptions; by itself it does not establish external identity, trusted time or the truth of the underlying event.
-
-OpenTelemetry GenAI semantic conventions referenced by the evidence layer remain subject to the status of the upstream specification.
-
-Performance results published by Quantum Excellium are limited to measurements actually performed and documented. Public-shim measurements must not be represented as licensed-runtime benchmarks.
-
-## 9. Delivered-package integrity
-
-SHA-256 values are published only for artefacts that have actually been generated and frozen.
-
-This public sheet intentionally contains **no placeholder package hashes**.
-
-For a licensed evaluation delivery, the evaluator receives the integrity information corresponding to the exact artefacts supplied.
-
-## 10. Licensing and intellectual property
-
-A **30-day, non-production evaluation licence** is available on request.
-
-Commercial models include OEM / embedded, platform and sovereign deployment arrangements.
-
-Quantum Excellium has filed **six patent applications with INPI in 2026**. They are patent applications, not granted patents.
-
-Contact:
-
-**contact@quantumexcellium.com**
-
-Quantum Excellium L.L.C. — Wyoming, United States
-
----
-
-**Proof, not promises.**
-
-https://quantumexcellium.com/en/proof.html
+## 8. Licensing
+Evaluation licence (30 days, non-production, Ed25519-signed) · OEM Embedded / Platform · Sovereign (perpetual, escrow).
+contact@quantumexcellium.com · Quantum Excellium L.L.C. (Wyoming) · six patent applications filed with INPI (not granted).
